@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+
+  post 'games', to: 'games#create'
+  get 'games/:id/score', to: 'games#score'
+
+  post 'games/:id/shots', to: 'shots#create'
+
 end
