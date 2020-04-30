@@ -5,9 +5,8 @@ class Game < ApplicationRecord
   enum status: { active: 0, completed: 1 }
 
   def current_frame
-    if frames.empty? || (!frames.last.available? && !frames.last.tenth_frame?)
+    if frames.empty? || (!frames.last.available? && frames.size < 10)
       frames << Frame.new
-      frames.update(status: :tenth_frame) if frames.size == 10
     end
 
     frames.last

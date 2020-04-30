@@ -1,6 +1,6 @@
 class Shot < ApplicationRecord
   belongs_to :frame
 
-  validates :value, :inclusion => { :in => 0..10 }
+  validates :knocked_pins, :inclusion => { :in => 0..10 }
 
 end

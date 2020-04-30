@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
 
-  post 'games', to: 'games#create'
-  get 'games/:id/score', to: 'games#score'
+  resources :games , only: [:show, :create]
 
   post 'games/:id/shots', to: 'shots#create'
 
