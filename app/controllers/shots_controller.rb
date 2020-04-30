@@ -4,7 +4,7 @@ class ShotsController < ApplicationController
     @game = Game.find_by(id: params[:id])
 
     if @game.completed?
-      render error: { error: 'This game has already been completed'}, status: 400
+      render json: { error: 'This game has already been completed'}, status: 400 and return
     end
 
     current_frame = @game.current_frame
@@ -39,6 +39,17 @@ class ShotsController < ApplicationController
       else
 
       end
+
+      # Check if previous frame was a spare and update score accordingly
+      one_frame_ago = @game.frames.second_to_last
+      one_frame_ago.update(score: @game.shots.second_to_last.value + @shot.value) if !one_frame_ago.nil? && one_frame_ago.spare?
+
+      # Check if we had a strike two rolls ago
+      two_frames_ago = @game.frames.third_to_last
+      two_frames_ago.update(score: @game.shots.third_to_last.value +  @game.shots.second_to_last.value + @shot.value) if !two_frames_ago.nil? && two_frames_ago.strike?
+
+      # If we have scored all ten frames, then the game is over
+      @game.update(status: :completed) if @game.frames.pluck(:score).compact.size == 10
 
       render json: @shot
     else

@@ -11,7 +11,7 @@ class GamesController < ApplicationController
   end
 
   def score
-    render json: { score: 100 }
+    render json: { score: Frame.pluck(:score).compact.reduce(0, :+) }
   end
 
 end
