@@ -2,8 +2,8 @@
 
 one:
   frame: one
-  value: 1
+  knocked_pins: 1
 
 two:
   frame: two
-  value: 1
+  knocked_pins: 1

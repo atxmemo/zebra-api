@@ -13,7 +13,14 @@ class Game < ApplicationRecord
     frames.last
   end
 
-  def add_shot(shot, frame)
+  def add_shot(knocked_pins)
+    frame = current_frame
+    shot = Shot.create(knocked_pins: knocked_pins, frame: frame)
+
+    if shot.invalid?
+      raise ArgumentError, "Invalid amount of knocked pins for a shot"
+    end
+
     # First shot in frame
     if frame.shots.size == 1
       if shot.knocked_pins == 10
@@ -24,7 +31,7 @@ class Game < ApplicationRecord
     elsif frame.shots.size == 2
       score = shot.knocked_pins + frame.shots.first.knocked_pins
 
-      if score > 10 && self.frames.size != 10
+      if score > 10 && frames.size != 10
         raise ArgumentError, "Invalid amount of knocked pins for this frame, should be between 0 and #{10 - frame.shots.first.knocked_pins}"
       end
 
@@ -40,22 +47,22 @@ class Game < ApplicationRecord
 
       # Third shot in frame aka fill shot (should only be possible on tenth frame)
     else
-      frame.update(score: self.shots.third_to_last.knocked_pins +  self.shots.second_to_last.knocked_pins + shot.knocked_pins)
+      frame.update(score: shots.third_to_last.knocked_pins + shots.second_to_last.knocked_pins + shot.knocked_pins)
     end
 
     # Check if previous shot was a spare and update score accordingly
-    one_shot_ago = self.shots.second_to_last
-    one_shot_ago.frame.update(score: 10 + shot.knocked_pins) if !one_shot_ago.nil? && one_shot_ago.frame.spare? && self.frames.size > 1
+    one_shot_ago = shots.second_to_last
+    one_shot_ago.frame.update(score: 10 + shot.knocked_pins) if !one_shot_ago.nil? && one_shot_ago.frame.spare? && frames.size > 1
 
     # Check if we had a strike two shots ago
-    two_shots_ago = self.shots.third_to_last
-    two_shots_ago.frame.update(score: 10 +  self.shots.second_to_last.knocked_pins + shot.knocked_pins) if !two_shots_ago.nil? && two_shots_ago.frame.strike?
+    two_shots_ago = shots.third_to_last
+    two_shots_ago.frame.update(score: 10 + shots.second_to_last.knocked_pins + shot.knocked_pins) if !two_shots_ago.nil? && two_shots_ago.frame.strike?
 
     # If we have scored all ten frames, then the game is over
-    self.update(status: :completed) if self.frames.pluck(:score).compact.size == 10
+    update(status: :completed) if frames.pluck(:score).compact.size == 10
 
     # Update game score after every shot
-    self.update(score: self.frames.pluck(:score).compact.reduce(0, :+))
+    update(score: frames.pluck(:score).compact.reduce(0, :+))
   end
 
 end

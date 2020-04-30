@@ -7,18 +7,11 @@ class ShotsController < ApplicationController
       render json: { error: 'This game has already been completed'}, status: 400 and return
     end
 
-    current_frame = game.current_frame
-    shot = Shot.new(knocked_pins: params[:knocked_pins], frame: current_frame)
-
-    if shot.save
-      begin
-        game.add_shot(shot, current_frame)
-        render json: shot
-      rescue StandardError => e
-        render json: { error: e.message }
-      end
-    else
-      render error: { error: "Unable to create shot: #{shot.errors.messages}"}, status: 400
+    begin
+      game.add_shot(params[:knocked_pins])
+      render json: game.shots.last
+    rescue StandardError => e
+      render json: { error: e.message }
     end
   end
 
