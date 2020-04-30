@@ -3,8 +3,6 @@ class CreateShots < ActiveRecord::Migration[6.0]
     create_table :shots do |t|
       t.references :frame, null: false, foreign_key: true
       t.integer :knocked_pins
-
-      t.timestamps
     end
   end
 end

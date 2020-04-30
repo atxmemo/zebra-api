@@ -17,16 +17,12 @@ ActiveRecord::Schema.define(version: 2020_04_30_014138) do
 
   create_table "frames", force: :cascade do |t|
     t.bigint "game_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
     t.integer "score"
     t.index ["game_id"], name: "index_frames_on_game_id"
   end
 
   create_table "games", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
     t.integer "score"
   end
@@ -34,8 +30,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_014138) do
   create_table "shots", force: :cascade do |t|
     t.bigint "frame_id", null: false
     t.integer "knocked_pins"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["frame_id"], name: "index_shots_on_frame_id"
   end
 
