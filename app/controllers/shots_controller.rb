@@ -9,9 +9,9 @@ class ShotsController < ApplicationController
 
     begin
       game.add_shot(params[:knocked_pins])
-      render json: game.shots.last
+      render json: game.shots.last, status: :created
     rescue StandardError => e
-      render json: { error: e.message }
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 

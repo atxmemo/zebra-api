@@ -9,7 +9,7 @@ class GamesController < ApplicationController
     @game = Game.new
 
     if @game.save
-      render json: @game
+      render json: @game, status: :created
     else
       render error: { error: 'Unable to create game.'}, status: 400
     end
