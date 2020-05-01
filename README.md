@@ -2,6 +2,10 @@
 
 This is a Ruby on Rails app that provides a REST API for Bowling games.
 
+A game is considered complete once all frames have been scored, until then, a game is considered active.
+
+[Here](http://bowling.about.com/od/rulesofthegame/a/bowlingscoring.htm) is some information on bowling scoring for reference.
+
 ## Install
 
     bundle install
@@ -13,6 +17,27 @@ This is a Ruby on Rails app that provides a REST API for Bowling games.
 ## Run the tests
 
     rails test test/
+
+# Database Schema
+```
+  create_table "frames", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.integer "status", default: 0
+    t.integer "score"
+    t.index ["game_id"], name: "index_frames_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.integer "score"
+  end
+
+  create_table "shots", force: :cascade do |t|
+    t.bigint "frame_id", null: false
+    t.integer "knocked_pins"
+    t.index ["frame_id"], name: "index_shots_on_frame_id"
+  end
+```    
 
 # REST API
 
