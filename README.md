@@ -6,6 +6,12 @@ A game is considered complete once all frames have been scored, until then, a ga
 
 [Here](http://bowling.about.com/od/rulesofthegame/a/bowlingscoring.htm) is some information on bowling scoring for reference.
 
+An instance of this application has been deployed here using the [Heroku](https://www.heroku.com/platform) cloud platform with Swagger UI functionality. 
+
+Swagger was added because it allows anybody to visualize and interact with the API’s resources without having any of the implementation logic in place which makes it very easy to test and consume.
+
+The Swagger implementation of this Bowling REST API can be found [here](https://mighty-crag-95482.herokuapp.com/index.html)
+
 ## Install
 
     bundle install
@@ -14,7 +20,7 @@ A game is considered complete once all frames have been scored, until then, a ga
 
     rails server
 
-## Run the tests
+## Run the test suite
 
     rails test test/
 
@@ -41,10 +47,11 @@ A game is considered complete once all frames have been scored, until then, a ga
 
 # REST API
 
-The REST API is described below.
-NOTE: Below commands assume installation of the [httpie](https://httpie.org/) command line client.
+The REST API is detailed below.
 
-Please see the [httpie installation](https://httpie.org/docs#installation) instructions for more information.
+Below example commands assume usage of the [httpie](https://httpie.org/) command line client. Please see the [httpie installation](https://httpie.org/docs#installation) instructions for more information.
+
+For a visual representation and consumption of this API you can use the Swagger implementation found [here](https://mighty-crag-95482.herokuapp.com/index.html) 
 
 ## Create a game
 
