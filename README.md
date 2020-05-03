@@ -2,8 +2,6 @@
 
 This is a Ruby on Rails app that provides a REST API for Bowling games.
 
-A game is considered complete once all frames have been scored, until then, a game is considered active.
-
 [Here](http://bowling.about.com/od/rulesofthegame/a/bowlingscoring.htm) is some information on bowling scoring for reference.
 
 An instance of this application has been deployed here using the [Heroku](https://www.heroku.com/platform) cloud platform with Swagger UI functionality. 
@@ -34,7 +32,9 @@ The Swagger implementation of this Bowling REST API can be found [here](https://
   end
 
   create_table "games", force: :cascade do |t|
-    t.integer "status", default: 0
+  
+    # A game is considered complete once all frames have been scored, until then, a game is considered active.
+    t.integer "status", default: 0 
     t.integer "score"
   end
 
