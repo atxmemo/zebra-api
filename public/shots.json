@@ -1,0 +1,42 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "",
+  "resourcePath": "shots",
+  "apis": [
+    {
+      "path": "/games/{id}/shots.json",
+      "operations": [
+        {
+          "summary": "Creates a new Shot",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Id of the Game this Shot is to be associated with",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "knocked_pins",
+              "type": "integer",
+              "description": "Amount of pins knocked on the Shot",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "responseModel": null,
+              "message": "Bad Request"
+            }
+          ],
+          "nickname": "Shots#create",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

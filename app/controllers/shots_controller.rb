@@ -1,5 +1,13 @@
 class ShotsController < ApplicationController
 
+  swagger_controller :shots, "Shot Management"
+
+  swagger_api :create do
+    summary "Creates a new Shot"
+    param :path, :id, :integer, :optional, "Id of the Game this Shot is to be associated with"
+    param :form, :knocked_pins, :integer, :required, "Amount of pins knocked on the Shot"
+    response :bad_request
+  end
   def create
     game = Game.find_by(id: params[:id])
 

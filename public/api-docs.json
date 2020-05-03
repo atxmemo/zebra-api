@@ -1,0 +1,21 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "",
+  "apis": [
+    {
+      "path": "/games.{format}",
+      "description": "Game Management"
+    },
+    {
+      "path": "/shots.{format}",
+      "description": "Shot Management"
+    }
+  ],
+  "authorizations": null,
+  "info": {
+    "title": "Bowling REST API",
+    "description": "This is a Ruby on Rails app that provides a REST API for Bowling games.",
+    "contact": "gterra023@gmail.com"
+  }
+}
